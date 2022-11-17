@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddRover from './components/AddRover';
 import PlateauForm from './components/PlateauForm';
 
 type Plateau = {
@@ -27,6 +28,7 @@ function App() {
         Upper Right: ({plateau.upperRight.toString()}) <br />
       </div>
       <PlateauForm handleFormSubmit={handlePlateauFormSubmit} />
+      <AddRover />
     </div>
   );
 }
