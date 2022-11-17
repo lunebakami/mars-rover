@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
 
-type Rover = {
-  position: {
-    x: number,
-    y: number
-  },
-  direction: string,
-  instructions: string
-}
-
 const AddRover: React.FC = () => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -21,6 +12,7 @@ const AddRover: React.FC = () => {
     const rovers = JSON.parse(localStorage.getItem('rovers') ?? '[]');
 
     const rover: Rover = {
+      id: rovers.length + 1,
       position: {
         x,
         y
@@ -30,8 +22,6 @@ const AddRover: React.FC = () => {
     };
 
     rovers.push(rover);
-
-    console.log(rovers);
 
     localStorage.setItem('rovers', JSON.stringify(rovers));
   };

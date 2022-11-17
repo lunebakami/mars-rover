@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import AddRover from './components/AddRover';
 import PlateauForm from './components/PlateauForm';
-
-type Plateau = {
-  lowerLeft: Array<number>;
-  upperRight: Array<number>;
-};
+import RoverTable from './components/RoverTable';
 
 function App() {
   const [plateau, setPlateau] = useState<Plateau>({
@@ -29,6 +25,7 @@ function App() {
       </div>
       <PlateauForm handleFormSubmit={handlePlateauFormSubmit} />
       <AddRover />
+      <RoverTable />
     </div>
   );
 }
