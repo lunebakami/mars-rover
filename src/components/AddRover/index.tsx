@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
+import { useLocalStorage } from '../../hooks/localStorage';
 
-const AddRover: React.FC = () => {
+type AddRoverProps = {
+  setRovers: (value: Array<Rover> | Object) => void;
+};
+
+const AddRover: React.FC<AddRoverProps> = ({ setRovers }) => {
+  const [rovers] = useLocalStorage('rovers');
+
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [direction, setDirection] = useState('');
@@ -9,50 +16,52 @@ const AddRover: React.FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    const rovers = JSON.parse(localStorage.getItem('rovers') ?? '[]');
-
+    // Builds the new rover object
     const rover: Rover = {
       id: rovers.length + 1,
       position: {
         x,
-        y
+        y,
       },
       direction,
-      instructions
+      instructions,
     };
 
     rovers.push(rover);
 
-    localStorage.setItem('rovers', JSON.stringify(rovers));
+    // Updates the rovers state with a new Array
+    setRovers([...rovers]);
   };
 
-  return <form onSubmit={handleSubmit}>
-    <input
-      type="number"
-      name="x"
-      value={x}
-      onChange={(e) => setX(Number(e.target.value))}
-    />
-    <input
-      type="number"
-      name="y"
-      value={y}
-      onChange={(e) => setY(Number(e.target.value))}
-    />
-    <input
-      type="text"
-      name="direction"
-      value={direction}
-      onChange={(e) => setDirection(e.target.value)}
-    />
-    <input
-      type="text"
-      name="instructions"
-      value={instructions}
-      onChange={(e) => setInstructions(e.target.value)}
-    />
-    <button type="submit">Add Rover</button>
-  </form>;
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="number"
+        name="x"
+        value={x}
+        onChange={(e) => setX(Number(e.target.value))}
+      />
+      <input
+        type="number"
+        name="y"
+        value={y}
+        onChange={(e) => setY(Number(e.target.value))}
+      />
+      <input
+        type="text"
+        name="direction"
+        value={direction}
+        onChange={(e) => setDirection(e.target.value.toUpperCase())}
+      />
+      <input
+        type="text"
+        name="instructions"
+        value={instructions}
+        onChange={(e) => setInstructions(e.target.value.toUpperCase())}
+      />
+      <button type="submit">Add Rover</button>
+    </form>
+  );
 };
 
 export default AddRover;

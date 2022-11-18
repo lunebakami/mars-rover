@@ -4,11 +4,16 @@ type Plateau = {
 };
 
 type Rover = {
-  id?: number,
+  id?: number;
   position: {
-    x: number,
-    y: number
-  },
-  direction: string,
-  instructions: string
-}
+    x: number;
+    y: number;
+  };
+  direction: string;
+  instructions: string;
+  finalPosition?: {
+    x: number;
+    y: number;
+    direction: string;
+  };
+};

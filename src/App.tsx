@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import AddRover from './components/AddRover';
 import PlateauForm from './components/PlateauForm';
 import RoverTable from './components/RoverTable';
+import { useLocalStorage } from './hooks/localStorage';
 
 function App() {
-  const [plateau, setPlateau] = useState<Plateau>({
+  const [plateau, setPlateau] = useLocalStorage('plateau', {
     lowerLeft: [0, 0],
     upperRight: [0, 0],
   });
@@ -24,8 +23,7 @@ function App() {
         Upper Right: ({plateau.upperRight.toString()}) <br />
       </div>
       <PlateauForm handleFormSubmit={handlePlateauFormSubmit} />
-      <AddRover />
-      <RoverTable />
+      <RoverTable plateau={plateau} />
     </div>
   );
 }
