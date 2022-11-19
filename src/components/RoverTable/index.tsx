@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import AddRover from '../AddRover';
+import { Container } from './styles';
 
 type RoverTableProps = {
   plateau: Plateau;
@@ -22,7 +23,7 @@ const RoverTable: React.FC<RoverTableProps> = ({ plateau }) => {
   }, [rovers]);
 
   return (
-    <>
+    <Container>
       <AddRover plateau={plateau} />
       <table>
         <thead>
@@ -55,7 +56,7 @@ const RoverTable: React.FC<RoverTableProps> = ({ plateau }) => {
           ))}
         </tbody>
       </table>
-    </>
+    </Container>
   );
 };
 

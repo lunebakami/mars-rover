@@ -1,6 +1,7 @@
 import PlateauForm from './components/PlateauForm';
 import RoverTable from './components/RoverTable';
 import { useLocalStorage } from './hooks/localStorage';
+import GlobalStyle from './styles.global';
 
 function App() {
   const [plateau, setPlateau] = useLocalStorage('plateau', {
@@ -17,8 +18,9 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        Plateau Size: <br />
+      <GlobalStyle />
+      <div className="plateau-info">
+        <h2> Plateau Size:</h2>
         Lower Left: ({plateau.lowerLeft.toString()}) <br />
         Upper Right: ({plateau.upperRight.toString()}) <br />
       </div>
