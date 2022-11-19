@@ -11,7 +11,7 @@ const PlateauForm: React.FC<PlateauFormProps> = ({ handleFormSubmit }) => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     handleFormSubmit(x, y);

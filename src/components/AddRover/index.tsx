@@ -12,25 +12,35 @@ const AddRover: React.FC<AddRoverProps> = ({ plateau }) => {
   const [direction, setDirection] = useState('');
   const [instructions, setInstructions] = useState('');
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Builds the new rover object
-    const rover: Rover = {
-      position: {
-        x,
-        y,
-      },
-      direction,
-      instructions,
-    };
+    try {
+      // Builds the new rover object
+      const rover: Rover = {
+        position: {
+          x,
+          y,
+        },
+        direction,
+        instructions,
+      };
 
-    const resultRover = processRoverInstructions(rover, plateau);
+      const resultRover = processRoverInstructions(rover, plateau);
 
-    const result = await api.post('/rover', resultRover);
+      const result = await api.post('/rover', resultRover);
 
-    if (result.status === 200) {
-      alert('Success');
+      if (result.status === 200) {
+        alert('Success');
+      } else {
+        alert('Error on adding Rover!');
+      }
+    } catch (error) {
+      console.error(error);
+
+      let message = 'Unknown Error';
+      if (error instanceof Error) message = error.message;
+      alert(message);
     }
   };
 
