@@ -4,7 +4,7 @@ type Plateau = {
 };
 
 type Rover = {
-  id?: number;
+  _id?: string;
   position: {
     x: number;
     y: number;

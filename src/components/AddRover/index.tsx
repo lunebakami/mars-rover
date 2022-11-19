@@ -1,24 +1,22 @@
 import React, { useState } from 'react';
-import { useLocalStorage } from '../../hooks/localStorage';
+import api from '../../services/api';
+import { processRoverInstructions } from '../../utils/roverActions';
 
 type AddRoverProps = {
-  setRovers: (value: Array<Rover> | Object) => void;
+  plateau: Plateau;
 };
 
-const AddRover: React.FC<AddRoverProps> = ({ setRovers }) => {
-  const [rovers] = useLocalStorage('rovers');
-
+const AddRover: React.FC<AddRoverProps> = ({ plateau }) => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [direction, setDirection] = useState('');
   const [instructions, setInstructions] = useState('');
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     // Builds the new rover object
     const rover: Rover = {
-      id: rovers.length + 1,
       position: {
         x,
         y,
@@ -27,10 +25,13 @@ const AddRover: React.FC<AddRoverProps> = ({ setRovers }) => {
       instructions,
     };
 
-    rovers.push(rover);
+    const resultRover = processRoverInstructions(rover, plateau);
 
-    // Updates the rovers state with a new Array
-    setRovers([...rovers]);
+    const result = await api.post('/rover', resultRover);
+
+    if (result.status === 200) {
+      alert('Success');
+    }
   };
 
   return (
